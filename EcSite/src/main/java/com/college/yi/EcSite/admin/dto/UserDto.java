@@ -27,7 +27,7 @@ public class UserDto {
     private LocalDateTime updatedAt;
     private LocalDateTime lastLoginAt;
 
-    // --- roleをEnumで判定するメソッド ---
+    
     public UserRole getUserRole() {
         return UserRole.fromCode(this.role);
     }

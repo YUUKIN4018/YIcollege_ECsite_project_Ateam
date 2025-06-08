@@ -7,7 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import lombok.Data;
+
 @Entity
+@Data
 @Table(name = "product_images")
 public class ProductImage {
     @Id
@@ -23,8 +26,8 @@ public class ProductImage {
     @Column(name = "sort_order", nullable = false)
     private Integer sortOrder;
 
-    @Column(name = "is_man", nullable = false)
-    private Boolean isMan;
+    @Column(name = "is_main", nullable = false)
+    private Boolean isMain;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

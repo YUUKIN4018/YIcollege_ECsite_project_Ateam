@@ -9,5 +9,6 @@ import com.college.yi.EcSite.entity.Product;
 @Mapper
 public interface ProductMapper {
     List<Product>findAll();
+    void insert(Product product);
 
 }

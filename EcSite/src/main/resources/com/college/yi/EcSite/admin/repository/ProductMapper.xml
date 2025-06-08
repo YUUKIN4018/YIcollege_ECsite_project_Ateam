@@ -7,4 +7,31 @@
     <select id="findAll" resultType="com.college.yi.EcSite.entity.Product">
         SELECT * FROM products
     </select>
+    
+    <insert id="insert" parameterType="com.college.yi.EcSite.entity.Product" useGeneratedKeys="true" keyProperty="productId">
+  INSERT INTO products (
+      shop_id,
+      category_id,
+      name,
+      description,
+      price,
+      tax_rate,
+      stock_quantity,
+      status,
+      created_at,
+      updated_at
+  ) VALUES (
+      #{shopId},
+      #{categoryId},
+      #{name},
+      #{description},
+      #{price},
+      #{taxRate},
+      #{stockQuantity},
+      #{status},
+      #{createdAt},
+      #{updatedAt}
+  )
+</insert>
+
 </mapper>

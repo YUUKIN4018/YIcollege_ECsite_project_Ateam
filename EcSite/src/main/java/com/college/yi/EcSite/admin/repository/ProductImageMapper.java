@@ -9,4 +9,5 @@ import com.college.yi.EcSite.entity.ProductImage;
 @Mapper
 public interface ProductImageMapper{
     List<ProductImage> findByProductIds(List<Long> productIds);
+    void insert(ProductImage productImage);
 }

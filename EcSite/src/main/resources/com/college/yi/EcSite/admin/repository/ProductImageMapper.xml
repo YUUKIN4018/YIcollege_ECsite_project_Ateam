@@ -11,4 +11,13 @@
       #{id}
     </foreach>
   </select>
+  
+  <insert id="insert" parameterType="com.college.yi.EcSite.entity.ProductImage" useGeneratedKeys="true" keyProperty="imageId">
+  INSERT INTO product_images
+    (product_id, image_url, sort_order, is_main, created_at)
+  VALUES
+    (#{productId}, #{imageUrl}, #{sortOrder}, #{isMain}, NOW())
+</insert>
+
+
 </mapper>

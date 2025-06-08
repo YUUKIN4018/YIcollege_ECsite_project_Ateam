@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.college.yi.ecsite.admin.form.AdminLoginForm;
 import com.college.yi.ecsite.admin.service.AdminLoginService;
@@ -27,7 +28,12 @@ public class AdminLoginController {
     
 
     @GetMapping("/login")
-    public String showLoginForm(AdminLoginForm form) {
+    public String showLoginForm(AdminLoginForm form, @RequestParam(value = "logout", required = false) String logout,Model model) {
+        
+        if(logout != null) {
+            model.addAttribute("logoutMessage", "ログアウトしました");
+        }
+        
         return "admin/login";
     }
 

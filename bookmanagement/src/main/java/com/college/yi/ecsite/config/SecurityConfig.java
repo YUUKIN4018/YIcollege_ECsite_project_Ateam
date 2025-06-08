@@ -28,6 +28,8 @@ public class SecurityConfig {
         .logout(logout -> logout
             .logoutUrl("/admin/logout")
             .logoutSuccessUrl("/admin/login?logout")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID")
         );
         
         return http.build();
@@ -39,3 +41,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+

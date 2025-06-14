@@ -19,5 +19,7 @@ public class ProductsDto {
     private Integer stockQuantity;
     private Integer status;
     private List<ProductImageDto> images;
+    
+    private CategoryDto category;
 
 }

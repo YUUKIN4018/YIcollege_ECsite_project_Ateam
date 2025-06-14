@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductRegisterForm {
     
-    private Long productId; // 編集時に必要
+    private Long productId;
 
     @NotNull(message = "ショップIDは必須です")
     private Long shopId;

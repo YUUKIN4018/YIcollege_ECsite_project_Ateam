@@ -45,4 +45,11 @@
             updated_at = NOW()
         WHERE product_id = #{productId}
     </update>
+    
+
+  <update id="updateStock">
+    UPDATE products
+    SET stock_quantity = #{stockQuantity}, updated_at = NOW()
+    WHERE product_id = #{productId}
+  </update>
 </mapper>

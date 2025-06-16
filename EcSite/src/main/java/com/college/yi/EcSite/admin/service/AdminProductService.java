@@ -3,6 +3,7 @@ package com.college.yi.EcSite.admin.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import jakarta.validation.NoProviderFoundException;
@@ -37,12 +38,10 @@ public class AdminProductService {
 
     public List<ProductsDto> getProductList() {
         List<Product> products = productMapper.findAll();
-
         if (products.isEmpty()) {
             throw new NoProviderFoundException("現在登録されている商品はありません");
         }
 
-        
         List<Long> productIds = products.stream()
                 .map(Product::getProductId)
                 .collect(Collectors.toList());
@@ -55,7 +54,6 @@ public class AdminProductService {
                 })
                 .collect(Collectors.groupingBy(ProductImageDto::getProductId));
 
-        
         List<Long> categoryIds = products.stream()
                 .map(Product::getCategoryId)
                 .distinct()
@@ -73,8 +71,26 @@ public class AdminProductService {
             ProductsDto dto = new ProductsDto();
             BeanUtils.copyProperties(product, dto);
             dto.setImages(imageMap.getOrDefault(product.getProductId(), new ArrayList<>()));
-            dto.setCategory(categoryMap.get(product.getCategoryId())); // ←追加部分
+            dto.setCategory(categoryMap.get(product.getCategoryId()));
             return dto;
         }).collect(Collectors.toList());
     }
+
+    public Optional<Product> getProduct(Long productId) {
+        return productMapper.findById(productId);
+    }
+    public void updateStock(Long productId, Integer stockQuantity) {
+        if (stockQuantity == null || stockQuantity < 0) {
+            throw new IllegalArgumentException("在庫数は0以上の整数で入力してください");
+        }
+       
+        if (!productMapper.findById(productId).isPresent()) {
+            throw new IllegalArgumentException("対象商品が見つかりません");
+        }
+        int updatedRows = productMapper.updateStock(productId, stockQuantity);
+        if (updatedRows == 0) {
+            throw new RuntimeException("在庫更新に失敗しました");
+        }
+    }
+
 }

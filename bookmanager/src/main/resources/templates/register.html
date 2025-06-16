@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>会員登録</title>
+	<style>
+		.form-row {
+			display: flex;
+			gap: 20px;
+		}
+		
+		.form-group {
+			display: flex;
+			flex-direction: column;
+		}
+		
+		label {
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+		
+		input {
+			width: 200px;
+		}
+		
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<h2>会員登録</h2>
+	<form th:action="@{/register}" th:object="${registerForm}" method="post">
+		<div class="form-row">
+			<div class="form-group">
+				<label>性</label>
+				<input type="text" th:field="*{lastName}" />
+				<span class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+			</div>
+			<div class="form-group">
+				<label>名</label>
+				<input type="text" th:field="*{firstName}" />
+				<span class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+			</div>
+		</div>
+		
+		<div class="form-row">
+			<div class="form-group">
+				<label>セイ</label>
+				<input type="text" th:field="*{lastNameKana}" />
+				<span class="error" th:if="${#fields.hasErrors('lastNameKana')}" th:errors="*{lastNameKana}"></span>
+			</div>
+			
+			<div class="form-group">
+				<label>メイ</label>
+				<input type="text" th:field="*{firstNameKana}" />
+				<span class="error" th:if="${#fields.hasErrors('firstNameKana')}" th:errors="*{firstNameKana}"></span>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label>メールアドレス</label>
+			<input type="email" th:field="*{email}" />
+			<span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+		</div>
+		
+		<div class="form-group">
+			<label>パスワード</label>
+			<input type="password" th:field="*{password}" />
+			<span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+		</div>
+		
+		<div class="form-group">
+			<label>パスワード確認</label>
+			<input type="password" th:field="*{confirmPassword}" />
+			<span class="error" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>
+		</div>
+		
+		<button type="submit">登録</button>
+	</form>
+</body>
+</html>

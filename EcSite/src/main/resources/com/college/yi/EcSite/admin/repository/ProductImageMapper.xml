@@ -19,5 +19,9 @@
     (#{productId}, #{imageUrl}, #{sortOrder}, #{isMain}, NOW())
 </insert>
 
+<delete id="deleteByProductId" parameterType="long">
+    DELETE FROM product_images WHERE product_id = #{productId}
+</delete>
+
 
 </mapper>

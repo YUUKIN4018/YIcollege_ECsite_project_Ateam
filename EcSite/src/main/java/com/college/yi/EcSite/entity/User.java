@@ -23,7 +23,7 @@ public class User {
     private LocalDate birthDate;
     private Short gender;
     private Short status;
-    private Short role; // DB用（短縮形）
+    private Short role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime lastLoginAt;

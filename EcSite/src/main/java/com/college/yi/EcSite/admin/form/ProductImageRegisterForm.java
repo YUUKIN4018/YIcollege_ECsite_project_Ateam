@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class ProductImageRegisterForm {
-    private MultipartFile imageFile; // アップロード画像
-    private Integer sortOrder;       // 表示順
-    private Boolean isMain; 
-
+    private MultipartFile imageFile;
+    private String existingImageUrl; 
+    private Integer sortOrder;     
+    private Boolean isMain;    
 }

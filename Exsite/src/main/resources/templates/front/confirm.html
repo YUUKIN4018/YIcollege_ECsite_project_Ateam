@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注文確認</title>
+</head>
+<body>
+    <h1>注文内容確認</h1>
+
+    <table>
+        <tr><th>名前</th><td th:text="${orderForm.name}"></td></tr>
+        <tr><th>住所</th><td th:text="${orderForm.address}"></td></tr>
+        <tr><th>電話番号</th><td th:text="${orderForm.phone}"></td></tr>
+        <tr><th>日時指定</th><td th:text="${orderForm.specifyDatetime} ? 'あり' : 'なし'"></td></tr>
+        <tr><th>備考</th><td th:text="${orderForm.note}"></td></tr>
+    </table>
+
+    <form th:action="@{/order/confirm/submit}" method="post">
+        <button type="submit">注文確定</button>
+    </form>
+
+    <form th:action="@{/order}" method="get">
+        <button type="submit">戻る</button>
+    </form>
+</body>
+</html>

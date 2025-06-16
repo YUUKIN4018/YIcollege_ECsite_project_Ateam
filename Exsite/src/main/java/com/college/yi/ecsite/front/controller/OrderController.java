@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.college.yi.ecsite.front.dto.OrderForm;
 
+//注文入力→確認画面の部分
 @Controller
 @RequestMapping("/order")
 public class OrderController {

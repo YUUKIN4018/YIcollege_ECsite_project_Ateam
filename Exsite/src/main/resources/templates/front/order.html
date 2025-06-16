@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注文入力</title>
+</head>
+<body>
+    <h1>注文入力フォーム</h1>
+
+    <!-- 入力エラー表示 -->
+    <div th:if="${#fields.hasErrors('*')}">
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+        </ul>
+    </div>
+
+    <form th:action="@{/order/confirm}" th:object="${orderForm}" method="post">
+        <div>
+            <label>名前：</label>
+            <input type="text" th:field="*{name}" />
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+
+        <div>
+            <label>住所：</label>
+            <input type="text" th:field="*{address}" />
+            <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+        </div>
+
+        <div>
+            <label>電話番号：</label>
+            <input type="text" th:field="*{phone}" />
+            <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+        </div>
+
+        <div>
+            <label>日時指定：</label>
+            <input type="checkbox" th:field="*{specifyDatetime}" />
+        </div>
+
+        <div>
+            <label>備考：</label>
+            <textarea th:field="*{note}"></textarea>
+            <div th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></div>
+        </div>
+
+        <button type="submit">確認画面へ</button>
+    </form>
+</body>
+</html>

@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import com.college.yi.ecsite.entity.CartItem;
 import com.college.yi.ecsite.entity.Product;
 
+
+//商品名、画像、単価、数量、小計などをひとまとめにして画面表示用の形式にする
 public class CartItemDto {
 	private Long productId;
 	private String name;

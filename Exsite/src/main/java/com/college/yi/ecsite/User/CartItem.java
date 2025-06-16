@@ -8,7 +8,16 @@ import jakarta.persistence.ManyToOne;
 
 import com.college.yi.ecsite.entity.Product;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartItem {
 
     @Id
@@ -22,43 +31,4 @@ public class CartItem {
     private Product product;
 
     private int quantity;
-
-    public CartItem() {}
-
-    public CartItem(Long userId, Product product, int quantity) {
-        this.userId = userId;
-        this.product = product;
-        this.quantity = quantity;
-    }
-
-    // Getter / Setter
-    public Long getId() {
-        return id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }
-
-

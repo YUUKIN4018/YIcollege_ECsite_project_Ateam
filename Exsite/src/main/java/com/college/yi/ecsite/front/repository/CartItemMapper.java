@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.college.yi.ecsite.entity.CartItem;
 
+//データベースにものを挿入、更新、削除、全て削除
 @Mapper
 public interface CartItemMapper {
     List<CartItem> findByUserId(@Param("userId") Long userId);

@@ -11,6 +11,7 @@ import com.college.yi.ecsite.front.dto.CartItemDto;
 import com.college.yi.ecsite.front.repository.CartItemMapper;
 import com.college.yi.ecsite.front.repository.ProductMapper;
 
+//ビジネスロジック
 @Service
 public class CartService {
 

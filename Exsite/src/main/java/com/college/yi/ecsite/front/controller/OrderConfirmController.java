@@ -20,6 +20,7 @@ import com.college.yi.ecsite.entity.Product;
 import com.college.yi.ecsite.front.repository.OrderMapper;
 import com.college.yi.ecsite.front.repository.ProductMapper;
 
+//確認画面
 @Controller
 @RequestMapping("/order/confirm")
 public class OrderConfirmController {
@@ -32,7 +33,7 @@ public class OrderConfirmController {
 
     @GetMapping
     public String showConfirmPage(HttpSession session, Model model) { //注文確認画面を表示する
-        List<OrderItem> cart = (List<OrderItem>) session.getAttribute("cart"); //セッションからカート情報を取得
+        List<OrderItem> cart = (List<OrderItem>) session.getAttribute("cart"); 
         BigDecimal total = cart.stream() //合計金額を計算
             .map(d -> d.getPrice().multiply(BigDecimal.valueOf(d.getQuantity())))
             .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -58,7 +59,7 @@ public class OrderConfirmController {
 
         // 在庫更新・注文登録（注文したい量のストックがあった場合）
         Order order = new Order();
-        order.setUserId((Long) session.getAttribute("userId")); //ユーザーIDの取得、注文に紐づけ
+        order.setUserId((Long) session.getAttribute("userId")); //ユーザーIDの取得して、注文に紐づけ
         order.setOrderDate(LocalDateTime.now());
         order.setTotalAmount(cart.stream()  //合計金額の計算を設定
             .map(d -> d.getPrice().multiply(BigDecimal.valueOf(d.getQuantity())))

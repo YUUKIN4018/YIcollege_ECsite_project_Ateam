@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.college.yi.ecsite.entity.Order;
 
+//注文完了画面
 @Controller
 @RequestMapping("/order/complete")
 public class OrderCompleteController {
@@ -18,7 +19,7 @@ public class OrderCompleteController {
     public String showCompletePage(HttpSession session, Model model) {
         Order order = (Order) session.getAttribute("order"); //HttpSessionからorder情報を取得
         if (order == null) { //orderがない場合
-            return "redirect:/order/input"; // 注文入力画面へ移動
+            return "redirect:/order"; // 注文入力画面へ移動
         }
         model.addAttribute("order", order); //Modelにorderを渡す
         session.removeAttribute("order");

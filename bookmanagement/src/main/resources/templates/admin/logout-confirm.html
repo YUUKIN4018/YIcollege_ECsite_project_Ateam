@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ログアウト確認</title>
+</head>
+<body>
+    <h2>ログアウトしますか？</h2>
+
+    <!-- Spring Securityのログアウト処理 -->
+    <form th:action="@{/admin/logout}" method="post">
+        <button type="submit">はい（ログアウト）</button>
+    </form>
+
+    <!-- キャンセル処理（GETに変更） -->
+    <form th:action="@{/admin/logout/cancel}" method="get">
+        <button type="submit">いいえ（キャンセル）</button>
+    </form>
+</body>
+</html>

@@ -4,8 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.college.yi.EcSite.admin.repository.ProductMapper">
+
     <select id="findAll" resultType="com.college.yi.EcSite.entity.Product">
         SELECT * FROM products
+        WHERE deleted = false
     </select>
     
     <insert id="insert" parameterType="com.college.yi.EcSite.entity.Product" useGeneratedKeys="true" keyProperty="productId">
@@ -19,7 +21,8 @@
             stock_quantity,
             status,
             created_at,
-            updated_at
+            updated_at,
+            deleted
         ) VALUES (
             #{shopId},
             #{categoryId},
@@ -30,12 +33,13 @@
             #{stockQuantity},
             #{status},
             #{createdAt},
-            #{updatedAt}
+            #{updatedAt},
+            false
         )
     </insert>
     
     <select id="findById" resultType="com.college.yi.EcSite.entity.Product" parameterType="long">
-        SELECT * FROM products WHERE product_id = #{productId}
+        SELECT * FROM products WHERE product_id = #{productId} AND deleted = false
     </select>
     
     <update id="update" parameterType="com.college.yi.EcSite.entity.Product">
@@ -46,10 +50,17 @@
         WHERE product_id = #{productId}
     </update>
     
+    <update id="updateStock">
+        UPDATE products
+        SET stock_quantity = #{stockQuantity}, updated_at = NOW()
+        WHERE product_id = #{productId}
+    </update>
 
-  <update id="updateStock">
-    UPDATE products
-    SET stock_quantity = #{stockQuantity}, updated_at = NOW()
-    WHERE product_id = #{productId}
-  </update>
+    <update id="logicalDelete">
+        UPDATE products
+        SET deleted = true,
+            deleted_at = NOW()
+        WHERE product_id = #{productId}
+    </update>
+
 </mapper>

@@ -1,7 +1,9 @@
 package com.college.yi.EcSite.admin.service;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.transaction.Transactional;
 
@@ -26,7 +28,7 @@ public class AdminProductEditService {
     private final ProductImageMapper productImageMapper;
     private final CategoryMapper categoryMapper;
 
-    private final String imageSaveDir = "C:\\tmp\\uploaded_images\\";
+    private final String imageSaveDir = "C:/tmp/uploaded_images/";
 
     public AdminProductEditService(ProductMapper productMapper, ProductImageMapper productImageMapper, CategoryMapper categoryMapper) {
         this.productMapper = productMapper;
@@ -43,11 +45,9 @@ public class AdminProductEditService {
 
     @Transactional
     public void updateProduct(Long productId, ProductEditForm form) {
-        
         Product product = productMapper.findById(productId)
                 .orElseThrow(() -> new RuntimeException("商品が見つかりません"));
 
-        
         if (!StringUtils.hasText(form.getName())) {
             throw new IllegalArgumentException("商品名を入力してください");
         }
@@ -55,7 +55,6 @@ public class AdminProductEditService {
             throw new IllegalArgumentException("商品名は50文字以内で入力してください");
         }
 
-       
         if (form.getPrice() == null) {
             throw new IllegalArgumentException("価格を入力してください");
         }
@@ -71,7 +70,6 @@ public class AdminProductEditService {
             throw new IllegalArgumentException("価格は数値で入力してください");
         }
 
-        
         if (form.getCategoryId() == null) {
             throw new IllegalArgumentException("カテゴリを選択してください");
         }
@@ -80,7 +78,6 @@ public class AdminProductEditService {
             throw new IllegalArgumentException("選択されたカテゴリが存在しません");
         }
 
-        
         if (form.getImageList() != null) {
             for (ProductImageRegisterForm img : form.getImageList()) {
                 MultipartFile file = img.getImageFile();
@@ -99,7 +96,7 @@ public class AdminProductEditService {
                 }
             }
         }
-        
+
         product.setCategoryId(form.getCategoryId());
         product.setName(form.getName());
         product.setPrice(form.getPrice());
@@ -108,7 +105,7 @@ public class AdminProductEditService {
         product.setStatus(form.getStatus());
         product.setUpdatedAt(LocalDateTime.now());
         productMapper.update(product);
-        
+
         productImageMapper.deleteByProductId(productId);
         if (form.getImageList() != null) {
             for (ProductImageRegisterForm imgForm : form.getImageList()) {
@@ -123,7 +120,7 @@ public class AdminProductEditService {
                 image.setProductId(productId);
                 image.setImageUrl(imageUrl);
                 image.setSortOrder(imgForm.getSortOrder());
-                image.setIsMain(imgForm.getIsMain());
+                image.setIsMain(Objects.requireNonNullElse(imgForm.getIsMain(), false));
                 image.setCreatedAt(LocalDateTime.now());
                 productImageMapper.insert(image);
             }
@@ -131,11 +128,11 @@ public class AdminProductEditService {
     }
 
     private String saveImageAndGetUrl(MultipartFile file) {
-        java.io.File dir = new java.io.File(imageSaveDir);
+        File dir = new File(imageSaveDir);
         if (!dir.exists()) dir.mkdirs();
 
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-        java.io.File saveFile = new java.io.File(dir, fileName);
+        File saveFile = new File(dir, fileName);
         try {
             file.transferTo(saveFile);
         } catch (Exception e) {
@@ -143,8 +140,4 @@ public class AdminProductEditService {
         }
         return "/uploaded_images/" + fileName;
     }
-
-    }
-
-
-
+}

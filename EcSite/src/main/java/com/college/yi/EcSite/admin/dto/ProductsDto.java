@@ -18,8 +18,10 @@ public class ProductsDto {
     private BigDecimal taxRate;
     private Integer stockQuantity;
     private Integer status;
+    private String imageUrl; 
     private List<ProductImageDto> images;
-    
     private CategoryDto category;
+    
+    }
 
-}
+

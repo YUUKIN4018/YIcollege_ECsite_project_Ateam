@@ -3,14 +3,46 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.college.yi.EcSite.admin.repository.CategoryMapper">
 
-  <select id="findById" resultType="com.college.yi.EcSite.entity.Category">
-    SELECT * FROM categories WHERE category_id = #{categoryId}
+  <!-- 単体IDで取得 -->
+  <select id="findById" parameterType="long" resultType="com.college.yi.EcSite.entity.Category">
+    SELECT
+      category_id,
+      parent_category_id,
+      name,
+      description,
+      created_at,
+      updated_at
+    FROM categories
+    WHERE category_id = #{categoryId}
   </select>
 
+  <!-- 複数IDで取得（@Param("categoryIds") に対応） -->
   <select id="findByIds" resultType="com.college.yi.EcSite.entity.Category">
-    SELECT * FROM categories WHERE category_id IN
+    SELECT
+      category_id,
+      parent_category_id,
+      name,
+      description,
+      created_at,
+      updated_at
+    FROM categories
+    WHERE category_id IN
     <foreach item="id" collection="categoryIds" open="(" separator="," close=")">
       #{id}
     </foreach>
   </select>
+
+  <!-- 全件取得 -->
+  <select id="findAll" resultType="com.college.yi.EcSite.entity.Category">
+    SELECT
+      category_id,
+      parent_category_id,
+      name,
+      description,
+      created_at,
+      updated_at
+    FROM categories
+    ORDER BY category_id
+  </select>
+
 </mapper>

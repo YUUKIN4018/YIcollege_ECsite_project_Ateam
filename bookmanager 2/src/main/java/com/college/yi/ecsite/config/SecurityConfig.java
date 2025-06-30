@@ -14,30 +14,31 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/css/**", "/js/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/mypage", true)
-                .failureUrl("/login?error")
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
-                .invalidateHttpSession(true) 
-                .deleteCookies("JSESSIONID")
-            );
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    http
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers("/login", "/css/**", "/js/**").permitAll()
+	            .requestMatchers("/mypage").hasRole("USER")
+	            .anyRequest().authenticated()
+	        )
+	        .formLogin(form -> form
+	            .loginPage("/login")
+	            .loginProcessingUrl("/login")
+	            .usernameParameter("email")
+	            .passwordParameter("password")
+	            .defaultSuccessUrl("/mypage", true)
+	            .failureUrl("/login?error")
+	        )
+	        .logout(logout -> logout
+	            .logoutUrl("/logout")
+	            .logoutSuccessUrl("/login?logout")
+	            .invalidateHttpSession(true)
+	            .deleteCookies("JSESSIONID")
+	        );
 
-        return http.build();
-    }
+	    return http.build();
+	}
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
